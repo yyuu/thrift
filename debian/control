@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 5), build-essential, mono-gmcs, python-dev, ant,
     pkg-config, libtool, bison, flex, libboost-dev | libboost1.40-dev, python-all, python-all-dev,
     python-all-dbg, ruby, openjdk-6-jdk | java-sdk, libcommons-lang-java,
     libboost-test-dev | libboost-test1.40-dev, libevent-dev, perl (>= 5.8.0-7)
+    php5, php5-dev
 Maintainer: Thrift Developer's <thrift-dev@incubator.apache.org>
 Homepage: http://incubator.apache.org/thrift/
 Vcs-Svn: https://svn.apache.org/repos/asf/incubator/thrift
@@ -168,3 +169,17 @@ Description: Thrift C++ library (development headers)
  .
  This package contains the development libraries required for writing C++
  applications.
+
+Package: php5-thrift
+Architecture: any
+Section: php
+Depends: ${php:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Provides: ${php:Provides}
+Description: PHP bindings for Thrift
+ Thrift is a software framework for scalable cross-language services
+ development. It combines a software stack with a code generation engine to
+ build services that work efficiently and seamlessly.
+ .
+ Thrift came out of Facebook and is now an Apache Software Foundation project.
+ .
+ This package contains the PHP bindings for Thrift.

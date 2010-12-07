@@ -54,6 +54,11 @@ build-arch-stamp: configure-stamp
 		ruby setup.rb config --installdirs=std && \
 		ruby setup.rb setup
 
+	# PHP
+	cd $(CURDIR)/lib/php/src/ext/thrift_protocol && \
+		phpize && \
+		./configure && make
+
 	touch $@
 
 build-indep: build-indep-stamp
@@ -153,6 +158,11 @@ install-arch:
 	cd $(CURDIR)/lib/rb && \
 		ruby setup.rb install --prefix=$(CURDIR)/debian/libthrift-ruby
 
+	# PHP
+	mkdir -p $(CURDIR)/debian/php5-thrift
+	cd $(CURDIR)/lib/php && \
+		$(MAKE) DESTDIR=$(CURDIR)/debian/php5-thrift install
+
 	#cpp
 	mkdir -p $(CURDIR)/debian/tmp; \
 	cd $(CURDIR)/lib/cpp && \
@@ -190,6 +200,7 @@ binary-indep: build-indep install-indep
 
 # Build architecture dependant packages using the common target.
 binary-arch: build-arch install-arch
+	echo "php:Depends=phpapi-$(php-config5 --phpapi)" > debian/substvars
 	$(MAKE) -f debian/rules DH_OPTIONS=-s binary-common
 
 binary: binary-arch binary-indep
