@@ -22,7 +22,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
-	$(CURDIR)/bootstrap.sh
+	if [ -f bootstrap.sh ]; then $(CURDIR)/bootstrap.sh; fi
 	$(CURDIR)/configure --prefix=/usr
 
 	touch configure-stamp
